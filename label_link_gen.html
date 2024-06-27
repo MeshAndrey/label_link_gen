@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Генерация ссылки для печати этикеток</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<!-- class, count, vname, vproduct, vcode, orderid, offsetx, offsety, wlankey, stage -->
+
+<body>
+    <form id="form">
+        <!-- link begin -->
+        <div>
+            <label for="begin">Начало ссылки:</label>
+            <input type="text" id="begin" name="begin" value="http://localhost:8080/labelprint?" style="width: 300px;">
+        </div>
+        <!-- class -->
+        <div>
+            <p>Класс уст-ва:</p>
+            <input type="radio" id="default" name="class" value="default">
+            <label for="default">default</label>
+            <br>
+            <input type="radio" id="modem" name="class" value="modem">
+            <label for="modem">modem</label>
+            <br>
+            <input type="radio" id="no_modem" name="class" value="no_modem">
+            <label for="no_modem">no_modem</label>
+            <br>
+            <input type="radio" id="belarus" name="class" value="belarus">
+            <label for="belarus">belarus</label>
+            <br>
+            <input type="radio" id="mts" name="class" value="mts">
+            <label for="mts">mts</label>
+            <br>
+            <input type="radio" id="extended" name="class" value="extended">
+            <label for="extended">extended</label>
+            <br>
+            <input type="radio" id="top" name="class" value="top">
+            <label for="top">top</label>
+            <br>
+            <input type="radio" id="logo" name="class" value="logo">
+            <label for="logo">logo</label>
+            <br>
+            <input type="radio" id="wifi" name="class" value="wifi">
+            <label for="wifi">wifi</label>
+        </div>
+        <br>
+        <!-- count -->
+        <div>
+            <label for="count">Кол-во этикеток:</label>
+            <input type="number" id="count" name="count" min="0" max="10">
+        </div>
+        <br>
+        <!-- vname -->
+        <label for="vname">Производитель:</label>
+        <br>
+        <input type="text" id="vname" name="vname">
+        <br>
+        <!-- vproduct -->
+        <label for="vproduct">Продукт:</label>
+        <br>
+        <input type="text" id="vproduct" name="vproduct">
+        <br>
+        <!-- vcode -->
+        <label for="vcode">Артикул:</label>
+        <br>
+        <input type="text" id="vcode" name="vcode">
+        <br>
+        <!-- orderid -->
+        <label for="orderid">Номер заказа:</label>
+        <br>
+        <input type="text" id="orderid" name="orderid">
+        <br>
+        <!-- wlankey -->
+        <div>
+            <p>wlankey: </p>
+            <!-- wlankey -->
+            <label for="wlankey">Длина:</label>
+            <br>
+            <input type="number" id="wlankey" name="wlankey" min="0" max="20">
+            <br>
+            <!-- upper -->
+            <label for="upper">Кол-во символов в верхнем регистре:</label>
+            <br>
+            <input type="number" id="upper" name="upper" min="0" max="20">
+            <br>
+            <!-- digit -->
+            <label for="digit">Кол-во цифр:</label>
+            <br>
+            <input type="number" id="digit" name="digit" min="0" max="20">
+            <br>
+            <!-- special -->
+            <label for="special">Кол-во спецсимволов:</label>
+            <br>
+            <input type="number" id="special" name="special" min="0" max="20">
+            <br>
+        </div>
+        <!-- stage -->
+        <div>
+            <p>Этап:</p>
+            <input type="radio" id="rem" name="stage" value="rem">
+            <label for="rem">rem</label><br>
+            <input type="radio" id="nobase" name="stage" value="nobase">
+            <label for="nobase">nobase</label><br>
+            <input type="radio" id="refurb" name="stage" value="refurb">
+            <label for="refurb">refurb</label><br>
+        </div>
+        <br>
+        <!-- offsetx -->
+        <div>
+            <label for="offsetx">Смещение по x:</label>
+            <input type="number" id="offsetx" name="offsetx" min="0" max="10">
+        </div>
+        <!-- offsety -->
+        <div>
+            <label for="offsety">Смещение по y:</label>
+            <input type="number" id="offsety" name="offsety" min="0" max="10">
+        </div>
+        <br>
+        <!-- buttons -->
+        <input type="button" onclick="buttonClick()" value="Сгенерировать ссылку">
+        <input type="reset" value="Сбросить">
+    </form>
+    <br>
+    <!-- link -->
+    <a id="labellink" href="">link</a>
+    <br>
+</body>
+
+<script>
+function buttonClick() {
+    var formData = new FormData(form);
+
+    var begin = formData.get("begin");
+    const class_ = formData.get("class");
+    const count = formData.get("count");
+
+    const vname = formData.get("vname");
+    const vproduct = formData.get("vproduct");
+    const vcode = formData.get("vcode");
+    const orderid = formData.get("orderid");
+
+    const wlankey = formData.get("wlankey");
+    const upper = formData.get("upper");
+    const digit = formData.get("digit");
+    const special = formData.get("special");
+
+    const stage = formData.get("stage");
+    
+    const offsetx = formData.get("offsetx");
+    const offsety = formData.get("offsety");
+
+    var url = begin;
+
+    if (class_ !== null && class_ !== "") {
+        url = url.concat("class=").concat(class_).concat("&");
+    }
+
+    if (count !== null && count !== "") {
+        url = url.concat("count=").concat(count).concat("&");
+    }
+
+    if (vname !== null && vname !== "") {
+        url = url.concat("vname=").concat(vname).concat("&");
+    }
+
+    if (vproduct !== null && vproduct !== "") {
+        var vproductReplaced = vproduct.replace(" ", "%20");
+        url = url.concat("vproduct=").concat(vproductReplaced).concat("&");
+    }
+
+    if (vcode !== null && vcode !== "") {
+        url = url.concat("vcode=").concat(vcode).concat("&");
+    }
+
+    if (orderid !== null && orderid !== "") {
+        url = url.concat("orderid=").concat(orderid).concat("&");
+    }
+
+    if (wlankey !== null && wlankey !== "") {
+        url = url.concat("wlankey=").concat(wlankey).concat("&");
+    }
+
+    if (upper !== null && upper !== "") {
+        url = url.concat("upper=").concat(upper).concat("&");
+    }
+
+    if (digit !== null && digit !== "") {
+        url = url.concat("digit=").concat(digit).concat("&");
+    }
+
+    if (special !== null && special !== "") {
+        url = url.concat("special=").concat(special).concat("&");
+    }
+
+    if (stage !== null && stage !== "") {
+        url = url.concat("stage=").concat(stage).concat("&");
+    }
+
+    if (offsetx !== null && offsetx !== "") {
+        url = url.concat("offsetx=").concat(offsetx).concat("&");
+    }
+
+    if (offsety !== null && offsety !== "") {
+        url = url.concat("offsety=").concat(offsety).concat("&");
+    }
+
+    url = url.slice(0, -1);
+
+    console.log(url);
+
+    document.getElementById("labellink").href = url;
+    document.getElementById("labellink").innerText = url;
+}
+</script>
+
+</html>
