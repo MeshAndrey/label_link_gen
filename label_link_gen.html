@@ -75,9 +75,9 @@
         <br>
         <!-- wlankey -->
         <div>
-            <p>wlankey: </p>
+            <p>wlankey (генерация пароля): </p>
             <!-- wlankey -->
-            <label for="wlankey">Длина:</label>
+            <label for="wlankey">Длина пароля:</label>
             <br>
             <input type="number" id="wlankey" name="wlankey" min="0" max="20">
             <br>
@@ -158,7 +158,7 @@ function buttonClick() {
         url = url.concat("class=").concat(class_).concat("&");
     }
 
-    if (count !== null && count !== "") {
+    if (count !== null && count !== "" && count !== "0") {
         url = url.concat("count=").concat(count).concat("&");
     }
 
@@ -176,22 +176,23 @@ function buttonClick() {
     }
 
     if (orderid !== null && orderid !== "") {
-        url = url.concat("orderid=").concat(orderid).concat("&");
+        var orderIdReplaced = orderid.replace(" ", "%20");
+        url = url.concat("orderid=").concat(orderIdReplaced).concat("&");
     }
 
-    if (wlankey !== null && wlankey !== "") {
+    if (wlankey !== null && wlankey !== "" && wlankey !== "0") {
         url = url.concat("wlankey=").concat(wlankey).concat("&");
     }
 
-    if (upper !== null && upper !== "") {
+    if (upper !== null && upper !== "" && upper !== "0" ) {
         url = url.concat("upper=").concat(upper).concat("&");
     }
 
-    if (digit !== null && digit !== "") {
+    if (digit !== null && digit !== "" && digit !== "0") {
         url = url.concat("digit=").concat(digit).concat("&");
     }
 
-    if (special !== null && special !== "") {
+    if (special !== null && special !== "" && special !== "0") {
         url = url.concat("special=").concat(special).concat("&");
     }
 
@@ -199,11 +200,11 @@ function buttonClick() {
         url = url.concat("stage=").concat(stage).concat("&");
     }
 
-    if (offsetx !== null && offsetx !== "") {
+    if (offsetx !== null && offsetx !== "" && offsetx !== "0") {
         url = url.concat("offsetx=").concat(offsetx).concat("&");
     }
 
-    if (offsety !== null && offsety !== "") {
+    if (offsety !== null && offsety !== "" && offsety !== "0") {
         url = url.concat("offsety=").concat(offsety).concat("&");
     }
 
